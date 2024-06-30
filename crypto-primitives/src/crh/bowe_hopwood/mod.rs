@@ -14,8 +14,8 @@ use rayon::prelude::*;
 use super::pedersen;
 use crate::crh::{CRHScheme, TwoToOneCRHScheme};
 use ark_ec::{
-    twisted_edwards::Projective as TEProjective, twisted_edwards::TECurveConfig, AdditiveGroup,
-    CurveGroup,
+    twisted_edwards::Projective as TEProjective, twisted_edwards::TECurveConfig,
+    CurveGroup, Group,
 };
 use ark_ff::fields::PrimeField;
 use ark_serialize::{CanonicalDeserialize, CanonicalSerialize};
@@ -80,15 +80,7 @@ impl<P: TECurveConfig, W: pedersen::Window> CRHScheme for CRH<P, W> {
 
     fn setup<R: Rng>(rng: &mut R) -> Result<Self::Parameters, Error> {
         fn calculate_num_chunks_in_segment<F: PrimeField>() -> usize {
-            let upper_limit = F::MODULUS_MINUS_ONE_DIV_TWO;
-            let mut c = 0;
-            let mut range = F::BigInt::from(2_u64);
-            while range < upper_limit {
-                range <<= 4;
-                c += 1;
-            }
-
-            c
+            panic!();
         }
 
         let maximum_num_chunks_in_segment = calculate_num_chunks_in_segment::<P::ScalarField>();
